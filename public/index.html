@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101828">
+  <title>OrderFlow — Kafka + Payments</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="brand-mark">O</span><span>orderflow<span class="brand-dot">.</span><small>EVENT-DRIVEN COMMERCE</small></span></a>
+    <nav><a href="#shop">Shop</a><a href="#create-product">Add product</a><a href="#orders">My orders</a></nav>
+    <div class="account-area"><span id="user-chip" class="user-chip hidden"></span><button id="logout-button" class="button button-ghost hidden" type="button">Log out</button><a class="button button-dark" href="#account" id="account-link">Login / Register</a></div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy"><div class="eyebrow"><span class="live-dot"></span> LOCAL MICROSERVICES PLAYGROUND</div>
+        <h1>From click to<br><span>confirmed order.</span></h1>
+        <p>A tiny commerce experience powered by Node.js services, Apache Kafka events and a safe test-payment flow.</p>
+        <div class="hero-actions"><a class="button button-primary" href="#shop">Explore products <span>↗</span></a><span class="hero-note"><span class="shield">✓</span> No real charge in mock mode</span></div>
+        <div class="hero-stats"><div><strong>04</strong><span>Services</span></div><div><strong>03</strong><span>Kafka events</span></div><div><strong>01</strong><span>Order flow</span></div></div>
+      </div>
+      <div class="hero-visual"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="glass-card order-preview"><div class="preview-top"><span class="tiny-label">ORDER PIPELINE</span><span class="pulse-tag"><span></span> LIVE DEMO</span></div><div class="preview-product"><div class="preview-product-icon">📦</div><div><strong>New order created</strong><span>order.created</span></div><span class="status-pill status-pending">PENDING</span></div><div class="pipeline-line"><span></span><span></span><span></span></div><div class="preview-event"><div class="event-icon">⚡</div><div><strong>Kafka event published</strong><span>orders.created · partitioned by order ID</span></div></div><div class="preview-event"><div class="event-icon event-icon-green">✓</div><div><strong>Payment verified</strong><span>payments.succeeded → status updated</span></div></div><div class="preview-footer"><span>EVENT-DRIVEN</span><span>BUILT FOR LEARNING ↗</span></div></div><div class="floating-chip chip-kafka"><span class="chip-icon">ϟ</span><span><strong>Apache Kafka</strong><small>Event stream</small></span></div><div class="floating-chip chip-payment"><span class="chip-icon">✓</span><span><strong>Test payments</strong><small>Safe sandbox</small></span></div></div>
+    </section>
+
+    <section id="account" class="account-panel section-panel">
+      <div class="section-heading"><div><span class="eyebrow">YOUR ACCOUNT</span><h2>Login to get started</h2></div><p>Create an account to place an order or add a product.</p></div>
+      <div class="auth-grid">
+        <form id="login-form" class="form-card"><div class="form-card-title"><span class="form-number">01</span><div><h3>Welcome back</h3><p>Login to your OrderFlow account.</p></div></div><label>Email<input name="email" type="email" autocomplete="email" placeholder="you@example.com" required></label><label>Password<input name="password" type="password" autocomplete="current-password" minlength="8" placeholder="At least 8 characters" required></label><button class="button button-dark button-full" type="submit">Login <span>→</span></button></form>
+        <form id="register-form" class="form-card"><div class="form-card-title"><span class="form-number form-number-lilac">02</span><div><h3>Create account</h3><p>A demo account is stored locally.</p></div></div><label>Full name<input name="name" autocomplete="name" placeholder="Piyush Jain" minlength="2" required></label><label>Email<input name="email" type="email" autocomplete="email" placeholder="you@example.com" required></label><label>Password<input name="password" type="password" autocomplete="new-password" minlength="8" placeholder="At least 8 characters" required></label><button class="button button-primary button-full" type="submit">Create account <span>→</span></button></form>
+      </div><p class="inline-message" id="auth-message" role="status"></p>
+    </section>
+
+    <section id="shop" class="shop-section section-panel">
+      <div class="section-heading"><div><span class="eyebrow">THE DEMO STORE</span><h2>Everyday essentials<span class="heading-period">.</span></h2></div><div class="section-tools"><span class="product-count" id="product-count">Loading products…</span><button class="button button-outline button-small" id="refresh-products" type="button">↻ Refresh</button></div></div>
+      <div id="product-grid" class="product-grid"><div class="loading-card">Loading the catalog…</div></div>
+    </section>
+
+    <section id="create-product" class="section-panel create-product-section">
+      <div class="section-heading"><div><span class="eyebrow">CATALOG MANAGEMENT</span><h2>Add a product<span class="heading-period">.</span></h2></div><p>Protected endpoint · product-service · data stays in its own local store.</p></div>
+      <form id="product-form" class="product-form"><label>Product name<input name="name" placeholder="e.g. USB-C Hub" minlength="2" required></label><label>Description<input name="description" placeholder="A short product description"></label><label>Price (₹)<input name="price" type="number" min="0.01" step="0.01" placeholder="1299" required></label><label>Stock<input name="stock" type="number" min="0" step="1" value="10" required></label><label>Emoji<input name="emoji" maxlength="4" value="📦" aria-label="Product emoji"></label><button class="button button-dark" type="submit">Create product <span>＋</span></button></form><p id="product-message" class="inline-message" role="status"></p>
+    </section>
+
+    <section id="orders" class="section-panel orders-section">
+      <div class="section-heading"><div><span class="eyebrow">YOUR ACTIVITY</span><h2>Recent orders<span class="heading-period">.</span></h2></div><button class="button button-outline button-small" id="refresh-orders" type="button">↻ Refresh orders</button></div>
+      <div class="orders-table-wrap"><table class="orders-table"><thead><tr><th>Order</th><th>Items</th><th>Total</th><th>Status</th><th>Created</th></tr></thead><tbody id="orders-body"><tr><td colspan="5" class="empty-state">Login to see your orders.</td></tr></tbody></table></div><p class="table-footnote">Order status updates asynchronously when the order-service consumes a payment event from Kafka.</p>
+    </section>
+
+    <section class="architecture-strip"><div><span class="eyebrow">UNDER THE HOOD</span><h2>Small services. Clear boundaries.</h2></div><div class="service-chips"><span><i class="dot dot-blue"></i>Auth · 3001</span><span><i class="dot dot-orange"></i>Products · 3002</span><span><i class="dot dot-purple"></i>Orders · 3003</span><span><i class="dot dot-green"></i>Payments · 3004</span><span><i class="dot dot-dark"></i>Kafka · 9092</span></div></section>
+  </main>
+
+  <footer><a class="brand brand-footer" href="#top"><span class="brand-mark">O</span><span>orderflow<span class="brand-dot">.</span></span></a><p>Built to learn event-driven backend engineering.</p><span class="footer-badge"><span class="live-dot"></span> LOCAL DEMO</span></footer>
+
+  <div id="mock-payment-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="mock-payment-title"><div class="modal-backdrop" data-close-modal="true"></div><div class="modal-card"><button id="close-payment-modal" class="modal-close" type="button" aria-label="Close">×</button><div class="modal-symbol">▤</div><span class="eyebrow">MOCK PAYMENT GATEWAY</span><h2 id="mock-payment-title">Complete test payment</h2><p>This is a local simulation. No card is charged and no real money moves.</p><div class="mock-payment-summary"><span>Amount</span><strong id="mock-payment-amount">₹0.00</strong></div><button id="mock-success-button" class="button button-primary button-full" type="button">✓ Simulate success</button><button id="mock-failure-button" class="button button-outline button-full" type="button">Simulate failure</button><p class="modal-note">Choose either outcome to see how Kafka changes the order status.</p></div></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>

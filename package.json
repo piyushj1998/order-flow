@@ -1,0 +1,35 @@
+{
+  "name": "orderflow-kafka-payment",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Learning microservices project using Node.js, KafkaJS and Razorpay Test Mode",
+  "scripts": {
+    "dev": "concurrently -n gateway,products,orders,payments -c green,yellow,magenta,cyan \"nodemon services/auth-service/server.js\" \"nodemon services/product-service/server.js\" \"nodemon services/order-service/server.js\" \"nodemon services/payment-service/server.js\"",
+    "consumer:products": "nodemon services/order-service/product-catalog-consumer.js",
+    "topics:create": "node scripts/create-topics.js",
+    "start:gateway": "node services/api-gateway/server.js",
+    "start:auth": "node services/auth-service/server.js",
+    "start:products": "node services/product-service/server.js",
+    "start:orders": "node services/order-service/server.js",
+    "start:payments": "node services/payment-service/server.js",
+    "db:setup": "node scripts/db-setup.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "concurrently": "^9.2.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.2",
+    "kafkajs": "^2.2.4",
+      "mysql2": "^3.15.3",
+      "razorpay": "^2.9.6"
+    },
+    "devDependencies": {
+      "nodemon": "^3.1.14"
+    }
+
+}
